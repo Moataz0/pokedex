@@ -1,0 +1,42 @@
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.shimmerBase {
+  background: linear-gradient(90deg, #e8eaf6 25%, #f3f4fd 50%, #e8eaf6 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.imgArea {
+  composes: shimmerBase;
+  height: 160px;
+  background-color: #e8eaf6;
+}
+
+.info {
+  padding: 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.line {
+  composes: shimmerBase;
+  border-radius: 6px;
+  background-color: #e8eaf6;
+}
+
+.name { height: 14px; width: 70%; }
+.id   { height: 11px; width: 35%; }
+.type { height: 20px; width: 50%; border-radius: 20px; }

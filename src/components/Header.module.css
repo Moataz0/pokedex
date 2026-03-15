@@ -1,0 +1,29 @@
+.header {
+  text-align: center;
+  padding: 40px 20px 8px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.bolt {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(247, 208, 44, 0.6));
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
