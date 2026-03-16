@@ -1,10 +1,7 @@
 import styles from './Header.module.css';
 
-interface Props {
-  subtitle?: string;
-}
 
-export default function Header({ subtitle }: Props) {
+export default function Header({ subtitle }: {subtitle?: string;}) {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>

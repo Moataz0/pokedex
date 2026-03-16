@@ -1,11 +1,9 @@
+import type { ErrMsgProps } from '../types';
 import styles from './ErrorMessage.module.css';
 
-interface Props {
-  message: string;
-  onRetry?: () => void;
-}
 
-export default function ErrorMessage({ message, onRetry }: Props) {
+
+export default function ErrorMessage({ message, onRetry }: ErrMsgProps) {
   return (
     <div className={styles.container}>
       <div className={styles.icon}>⚠️</div>

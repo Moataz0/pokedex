@@ -1,7 +1,6 @@
-import type { Pokemon, PokemonListResponse } from "../types";
+import type { Pokemon, PokemonListResponse } from '../types';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
-
 
 export async function fetchPokemonList(limit: number, offset: number): Promise<PokemonListResponse> {
   const res = await fetch(`${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`);
@@ -18,6 +17,10 @@ export async function fetchPokemon(idOrName: string | number): Promise<Pokemon> 
 export function getPokemonIdFromUrl(url: string): number {
   const parts = url.split('/').filter(Boolean);
   return parseInt(parts[parts.length - 1], 10);
+}
+
+export function getPokemonImage(id: number) {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 }
 
 export function getOfficialArtwork(pokemon: Pokemon): string {

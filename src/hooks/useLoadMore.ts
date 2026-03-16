@@ -1,11 +1,15 @@
-import { useState, useCallback } from 'react';
-import { fetchPokemonList, fetchPokemon, getPokemonIdFromUrl } from '../api/pokemon';
-import type { Pokemon } from '../types';
+import { useState, useCallback } from "react";
+import {
+  fetchPokemonList,
+  getPokemonIdFromUrl,
+  getPokemonImage,
+} from "../api/pokemon";
+import type { PokemonCardData } from "../types";
 
 const PAGE_SIZE = 20;
 
 export function useLoadMore() {
-  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+  const [pokemon, setPokemon] = useState<PokemonCardData[]>([]);
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
@@ -18,17 +22,25 @@ export function useLoadMore() {
     try {
       const data = await fetchPokemonList(PAGE_SIZE, currentOffset);
       setTotal(data.count);
-      const details = await Promise.all(
-        data.results.map((p) => fetchPokemon(getPokemonIdFromUrl(p.url)))
-      );
+
+      const items: PokemonCardData[] = data.results.map((p) => {
+        const id = getPokemonIdFromUrl(p.url);
+
+        return {
+          id,
+          name: p.name,
+          spriteUrl: getPokemonImage(id),
+        };
+      });
+
       setPokemon((prev) => {
         const existingIds = new Set(prev.map((p) => p.id));
-        const newOnes = details.filter((p) => !existingIds.has(p.id));
+        const newOnes = items.filter((p) => !existingIds.has(p.id));
         return [...prev, ...newOnes];
       });
       setOffset(currentOffset + PAGE_SIZE);
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong';
+      const msg = err instanceof Error ? err.message : "Something went wrong";
       setError(msg);
     } finally {
       setLoading(false);
@@ -50,5 +62,14 @@ export function useLoadMore() {
 
   const hasMore = total === null || offset < total;
 
-  return { pokemon, total, loading, initialLoading, error, hasMore, init, loadNext };
+  return {
+    pokemon,
+    total,
+    loading,
+    initialLoading,
+    error,
+    hasMore,
+    init,
+    loadNext,
+  };
 }

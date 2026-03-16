@@ -1,12 +1,7 @@
+import type { PaginationProps } from '../types';
 import styles from './Pagination.module.css';
 
-interface Props {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  total: number;
-  pageSize: number;
-}
+
 
 function getPageNumbers(current: number, total: number): (number | '...')[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -24,7 +19,7 @@ function getPageNumbers(current: number, total: number): (number | '...')[] {
   return pages;
 }
 
-export default function Pagination({ currentPage, totalPages, onPageChange, total, pageSize }: Props) {
+export default function Pagination({ currentPage, totalPages, onPageChange, total, pageSize }: PaginationProps) {
   const pages = getPageNumbers(currentPage, totalPages);
   const startItem = (currentPage - 1) * pageSize + 1;
   const endItem = Math.min(currentPage * pageSize, total);
